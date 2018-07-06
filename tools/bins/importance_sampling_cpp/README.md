@@ -1,6 +1,9 @@
-Compile
--------
-In the random_sampling_cpp dir : cmake . ; make
+Compilation
+-----------
+In the random_sampling_cpp directory:
+
+    cmake .;
+    make
 
 Execution
 ---------
