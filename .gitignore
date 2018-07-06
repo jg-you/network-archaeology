@@ -195,4 +195,5 @@ venv.bak/
 
 OD
 random_sampling_std
+growth
 # End of https://www.gitignore.io/api/c,c++,cmake,python
