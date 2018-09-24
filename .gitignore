@@ -176,6 +176,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.idea/
 
 # Spyder project settings
 .spyderproject
@@ -192,6 +193,7 @@ venv.bak/
 
 ### Python Patch ###
 .venv/
+
 
 OD
 random_sampling_std

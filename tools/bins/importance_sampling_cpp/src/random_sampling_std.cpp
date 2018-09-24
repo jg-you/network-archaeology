@@ -15,7 +15,7 @@ in a network.
 #include <string>
 #include <boost/random/uniform_01.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
-#include <random>
+#include <boost/random/discrete_distribution.hpp>
 #include <chrono>
 
 using namespace std;
@@ -127,7 +127,7 @@ int main(int argc, char const *argv[])
 				*degreeMap[iter->second],seedExponent));
 		}
 	}
-	discrete_distribution<int> seedDist(seedWeightVector.begin(),
+	boost::random::discrete_distribution<int> seedDist(seedWeightVector.begin(),
 		seedWeightVector.end());
 
 	//Get calibrating sample

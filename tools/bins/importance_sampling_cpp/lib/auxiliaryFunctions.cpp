@@ -10,9 +10,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <random>
 #include <cmath>
 #include <boost/random/uniform_int_distribution.hpp>
+#include <boost/random/discrete_distribution.hpp>
 
 using namespace std;
 
@@ -259,7 +259,7 @@ void add_edge(DynamicNetwork& p_net, pair<double,double>& p_model_param,
 	}
 
 	//Get a new random edge
-	discrete_distribution<int> edgeDist(weightList.begin(), weightList.end());
+	boost::random::discrete_distribution<int> edgeDist(weightList.begin(), weightList.end());
 	unsigned int newEdgeIndex = edgeDist(gen);
 	edge chosenEdge = indexMap[newEdgeIndex];
 
