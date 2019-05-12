@@ -12,8 +12,7 @@ from os import remove
 
 
 available_models = {"gn", "generalized_gn"}
-available_methods = {"degree", "OD",
-                     "snowball_sampling"}
+available_methods = {"degree", "OD", "SMC"}
 
 
 def _write_history(X, path):
@@ -42,8 +41,7 @@ def run(model, model_params, T,
       Number of generative step.
     method : str
       Name of the inference method.
-      Implemented methods are: degree, OD, random_expand,
-                               snowball_sampling, biased_snowball_sampling.
+      Implemented methods are: degree, OD, SMC.
     method_params : dict
       Parameters of the inference method.
     num_iter : int
