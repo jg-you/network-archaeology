@@ -35,7 +35,7 @@ We provide a simple script `compile.sh` that will compile everything.
 
 ### Repository layout and sample code
 
-* `example.py` is script that showcases how to use the code available in this repository. The function `consistency_check.run(...)` carries out every step of the process automatically (network construction, obfuscation, inference, de-obfuscation, comparison). One simply needs to specify the generative model (`generalized_gn` or `gn`), its parameters (`b` and `gamma`, via a `dict`), and the inference technique to use (available: `degree, OD, snowball_sampling`).
+* `example.py` is script that showcases how to use the code available in this repository. The function `consistency_check.run(...)` carries out every step of the process automatically (network construction, obfuscation, inference, de-obfuscation, comparison). One simply needs to specify the generative model (`generalized_gn` or `gn`), its parameters (`b` and `gamma`, via a `dict`), and the inference technique to use (available: `degree, OD, SMC`).
 
 * `tools/` contains python wrappers around all important parts of the software. These modules can be imported separately if only parts of the consistency check pipeline are needed.
 
