@@ -22,12 +22,13 @@ if __name__ == '__main__':
     model_params = dict()
 
     outfile = "test.txt"
-    method = "snowball_sampling"  # other options : OD, snowball_sampling
+    method = "SMC"  # options : OD, degree, SMC
     b = 1  # any float in [0, 1]
     T = 50  # 50 edges
-    if method == "snowball_sampling":
-        method_params["num_samples"] = 10000
-        method_params["bias_exponent"] = 1
+    if method == "SMC":
+        method_params["num_samples"] = 1000
+        method_params["min_ESS"] = 500
+        method_params["use_truncated"] = True
     seed = 42
 
     # Parameter grid
@@ -45,7 +46,6 @@ if __name__ == '__main__':
     
     # Sweep gammas.
     for gamma in gamma_range:
-        print("gamma=", gamma)
         model_params["gamma"] = gamma
         method_params["gamma"] = gamma
         tmp_path = "/tmp/varying_kernell_" +\
@@ -70,6 +70,7 @@ if __name__ == '__main__':
                           s,
                           sep='\t',
                           file=f)
+            print("gamma =", gamma, "|", "correlation:", scores[0])
         except Exception as e:
             print("#", str(e))  # log exceptions
             remove(tmp_path)

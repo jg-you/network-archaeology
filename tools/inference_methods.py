@@ -16,18 +16,20 @@ def _build_call(history_file_path, method, method_params):
     if method == "degree":
         call = [path.join(absolute_path, "bins", "degree.py")]
         call += [history_file_path]
-    if method == "snowball_sampling":
-        call = [path.join(absolute_path, "bins", "random_sampling_std")]
+    if method == "SMC":
+        call = [path.join(absolute_path, "bins", "SMC.py")]
         call += [history_file_path]
         call += [str(method_params["gamma"])]
         call += [str(method_params["b"])]
         call += [str(method_params["num_samples"])]
-        if method_params.get("bias_exponent") is None:
-            call += ["0"]
+        call += [str(method_params["min_ESS"])]
+        if method_params.get('use_truncated') is not None:
+            if method_params.get('use_truncated') is True:
+                call += ["1"]
+            else:
+                call += ["0"]
         else:
-            call += [str(method_params["bias_exponent"])]
-        if method_params.get("seed") is not None:
-            call += [str(method_params.get("seed"))]
+            call += ["0"]
     return call
 
 

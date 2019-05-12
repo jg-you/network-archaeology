@@ -39,12 +39,6 @@ if __name__ == '__main__':
     for t, x in enumerate(data):
         if x[1] != class_type:
             for c in class_content:
-                # if class_base_time > avg:
-                #     print(*c, class_base_time)
-                # elif class_base_time + len(class_content) < avg:
-                #     print(*c, class_base_time + len(class_content))
-                # else:
-                #     print(*c, avg)
                 print(*c, class_base_time + (len(class_content) + 1) / 2 - 1)
             class_content.clear()
             class_type = x[1]
@@ -55,10 +49,4 @@ if __name__ == '__main__':
 
     # Output last class
     for c in class_content:
-        # if class_base_time > avg:
-        #     print(*c, class_base_time)
-        # elif class_base_time + len(class_content) < avg:
-        #     print(*c, class_base_time + len(class_content))
-        # else:
-        #     print(*c, avg)
         print(*c, class_base_time + (len(class_content) + 1) / 2 - 1)
