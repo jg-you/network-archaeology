@@ -15,7 +15,7 @@ Pull requests are welcome.
     2. [Compilation](#compilation)
     3. [Repository layout and sample code](#repository-layout-and-sample-code)
 2. [Paper](#paper)
-3. [miscellaneous](#miscellaneous)
+3. [Miscellaneous](#miscellaneous)
 
 
 ## Usage
