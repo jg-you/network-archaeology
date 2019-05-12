@@ -11,9 +11,9 @@ Pull requests are welcome.
 ## Table of content
 
 1. [Usage](#usage)
-  1. [Dependencies](#dependencies)
-  2. [Compilation](#compilation)
-  3. [Repository layout and sample code](#repository-layout-and-sample-code)
+    1. [Dependencies](#dependencies)
+    2. [Compilation](#compilation)
+    3. [Repository layout and sample code](#repository-layout-and-sample-code)
 2. [Paper](#paper)
 3. [miscellaneous](#miscellaneous)
 
