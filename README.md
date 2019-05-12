@@ -15,6 +15,7 @@ Pull requests are welcome.
   2. [Compilation](#compilation)
   3. [Repository layout and sample code](#repository-layout-and-sample-code)
 2. [Paper](#paper)
+3. [miscellaneous](#miscellaneous)
 
 
 ## Usage
@@ -47,3 +48,6 @@ We provide a simple script `compile.sh` that will compile everything.
 J.-G. Young, G. St-Onge, E. Laurence, C. Murphy, L. Hébert-Dufresne and P. Desrosiers<br/>
 [arXiv:1803.09191](https://arxiv.org/abs/1803.09191) (2019)
 
+## Miscellaneous
+
+The code used to compute the automorphisms statistics of the generated networks is more or less all in [this GitHub gist](https://gist.github.com/jg-you/ff9ba9bfac1f24ecc2a8f31cc89c5067). It's a small wrapper around nauty's Dreadnaut.
