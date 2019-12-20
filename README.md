@@ -43,11 +43,12 @@ We provide a simple script `compile.sh` that will compile everything.
 
 ## Paper
 
-**Network archaeology: phase transition in the recoverability of network history**
+**Phase transition in the recoverability of network history**
 
 J.-G. Young, G. St-Onge, E. Laurence, C. Murphy, L. Hébert-Dufresne and P. Desrosiers<br/>
-[arXiv:1803.09191](https://arxiv.org/abs/1803.09191) (2019)
+Phys. Rev. X, 9, 041056 (2019) <br/>
+[Journal link (open)](https://doi.org/10.1103/PhysRevX.9.041056) | [arXiv link](https://arxiv.org/abs/1803.09191) 
 
 ## Miscellaneous
 
-The code used to compute the automorphisms statistics of the generated networks is more or less all in [this GitHub gist](https://gist.github.com/jg-you/ff9ba9bfac1f24ecc2a8f31cc89c5067). It's a small wrapper around nauty's Dreadnaut.
+The code used to compute the automorphisms statistics of the generated networks is more or less all in [this GitHub gist](https://gist.github.com/jg-you/ff9ba9bfac1f24ecc2a8f31cc89c5067). It is a small wrapper around nauty's Dreadnaut.
