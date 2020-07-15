@@ -8,7 +8,7 @@ Author: Jean-Gabriel Young <jgyou@umich.edu>
 import networkx as nx
 import numpy as np
 import copy
-from SamplableSet import EdgeSamplableSet
+from SamplableSet import SamplableSet as sset
 
 # Global status dict
 [UNEXPLORED, BOUNDARY, EXPLORED] = range(3)
@@ -26,7 +26,7 @@ def order(edge):
 class History(object):
     """Edge history of a MultiGraphs."""
 
-    def __init__(self, g, gamma, b, seed, use_snowball=True):
+    def __init__(self, g, gamma, b, use_snowball=True):
         """History constructor.
 
         Parameters
@@ -52,16 +52,18 @@ class History(object):
         self.k_max = max(list(nx.degree(g)), key=lambda x: x[1])[1]
         if use_snowball:
             self.step = self._step_snowball
-            self.closures = EdgeSamplableSet(1, 1, seed)
-            self.tendrils = EdgeSamplableSet(1, 1, seed)
+            self.closures = sset(1, 1, cpp_type='3int')
+            self.tendrils = sset(1, 1, cpp_type='3int')
         else:
             self.step = self._step_weighted
             if gamma >= 0:
-                self.closures = EdgeSamplableSet(1, self.k_max ** (2 * gamma), seed)  # noqa
-                self.tendrils = EdgeSamplableSet(1, self.k_max ** gamma, seed)
+                self.closures = sset(1, self.k_max ** (2 * gamma),
+                                     cpp_type='3int')  # noqa
+                self.tendrils = sset(1, self.k_max ** gamma,
+                                     cpp_type='3int')
             else:
-                self.closures = EdgeSamplableSet(self.k_max ** (2 * gamma), 1, seed)  # noqa
-                self.tendrils = EdgeSamplableSet(self.k_max ** gamma, 1, seed)
+                self.closures = sset(self.k_max ** (2 * gamma), 1, cpp_type='3int')  # noqa
+                self.tendrils = sset(self.k_max ** gamma, 1, cpp_type='3int')
         self.status = {order(e): UNEXPLORED for e in g.edges}
 
     # Private members
@@ -248,8 +250,8 @@ class History(object):
                         self.closures.set_weight(e, w)
         return step_weight
 
-    def duplicate(self, seed):
-        """Return a copy of the History with new RNG seed."""
+    def duplicate(self):
+        """Return a copy of the History"""
         cls = self.__class__
         new_history = cls.__new__(cls)
         new_history.use_snowball = self.use_snowball
@@ -264,8 +266,8 @@ class History(object):
         new_history.deg = copy.copy(self.deg)
         new_history.Z = self.Z
         new_history.k_max = self.k_max
-        new_history.closures = EdgeSamplableSet(self.closures, seed)
-        new_history.tendrils = EdgeSamplableSet(self.tendrils, seed)
+        new_history.closures = copy.copy(self.closures)
+        new_history.tendrils = copy.copy(self.tendrils)
         new_history.status = copy.copy(self.status)
         return new_history
 
@@ -279,9 +281,10 @@ class History(object):
 class BridgeSampler(object):
     """Implements Bloem-Reddy & Orbanz Bridge sampling algorithm."""
 
-    def __init__(self):
+    def __init__(self, seed=None):
         """Empty constructor."""
-        pass
+        if not seed is None:
+            sset.seed(seed)
 
     def draw(self, g, gamma, b, n, min_ESS, use_snowball=True):
         """Generate a batch of samples with adaptive SMC.
@@ -301,13 +304,18 @@ class BridgeSampler(object):
         use_snowball : bool
             Use snowball proposal distribution.
         """
+        # count selfloops
+        nb_self_loops = 0
+        for e in g.edges:
+            if e[0] == e[1]:
+                nb_self_loops += 1
         # First step
         T = g.number_of_edges()
         weight_list = np.ones(n)
-        history_list = [History(g, gamma, b, i, use_snowball) for i in range(n)]  # noqa
+        history_list = [History(g, gamma, b, use_snowball) for i in range(n)]  # noqa
         for i in range(n):
             # selection somewhat complicated by the presence of self-loops
-            id_init = np.random.randint(0, T - g.number_of_selfloops())
+            id_init = np.random.randint(0, T - nb_self_loops)
             idx = -1
             for e in g.edges:
                 if e[0] != e[1]:
@@ -317,6 +325,7 @@ class BridgeSampler(object):
                     break
             history_list[i].init(order(init_edge))
             history_list[i].step(g)  # mark first edge as explored
+
 
         # Bulk of the steps
         for t in range(1, T):
@@ -334,8 +343,7 @@ class BridgeSampler(object):
                                            p=weight_list)
                 tmp_list = [None for i in range(n)]
                 for i in range(n):
-                    new_seed = np.random.randint(2147483647)   # max int32
-                    tmp_list[i] = history_list[indices[i]].duplicate(new_seed)
+                    tmp_list[i] = history_list[indices[i]].duplicate()
                     weight_list[i] = 1
                 history_list = tmp_list
                 del tmp_list
