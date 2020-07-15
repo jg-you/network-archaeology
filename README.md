@@ -23,9 +23,9 @@ Pull requests are welcome.
 ### Dependencies
 
 * `python3`
-* `networkx2.0`
+* `networkx >= 2.0`
 * `cmake` (to build the sampler)
-* [SamplableSet](https://github.com/gstonge/SamplableSet) (used for the SMC sampler) 
+* [SamplableSet](https://github.com/gstonge/SamplableSet) `>= 2.0` (used for the SMC sampler) 
 
 ### Compilation
 
